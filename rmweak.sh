@@ -53,7 +53,7 @@ rm -f $model_tmp $rmlist
 # Updating catalog:
 
 # V1.1.3
-# Use sed command to reduce the incompatiblity between Linux-Bash and Macintosh-Bash
+# Use sed command to eliminate the incompatiblity between Linux-Bash and Macintosh-Bash
 
 # V1.1.2
 # Add two characters to work on the output model file by gtlike as well
