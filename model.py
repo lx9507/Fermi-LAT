@@ -5,6 +5,7 @@ import commands as cmd
 
 srcfile = cmd.getoutput(". ./var_common.gts && echo $file_filtered_gti")
 catalog_dir = os.environ.get('HOME') + '/data_Fermi/catalog'
+
 mymodel = srcList(catalog_dir + '/gll_psc_v08.fit',
                   srcfile, 'model.xml')
 pathtodiffusefiles = os.environ.get('FERMI_DIR') + '/refdata/fermi/galdiffuse'
