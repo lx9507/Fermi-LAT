@@ -1,8 +1,11 @@
-<h1>Fermi-LAT</h1>
+# Fermi-LAT
 
-<p>useful tools for Fermi-LAT data reduction</p>
+useful tools for Fermi-LAT data reduction
 
-<ol>
-<li>"rmweak.sh"<br>
-It is used to remove the weakest sources (TS &lt; ts_limit, usually TS &lt; 1) in xml models.</li>
-</ol>
+* "rmweak.sh"
+
+    It is used to remove the weakest sources (TS < ts_limit, usually TS < 1) in xml models.
+
+* "model.py"
+
+    It uses make2FGLxml package to generate the source model file.
