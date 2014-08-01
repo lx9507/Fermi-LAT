@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Version 1.1.3
-# Date: Jan. 26th, 2014
+# Version 1.2.0
+# Date: Aug. 1st, 2014
 # Author: Li, Xiang
 
 # This script is to help us remove the weakest sources automatically
@@ -29,19 +29,19 @@ rmlist_tmp=rmlist_tmp.dat
 
 cp $model $model_rmweak
 
-sed '1!G;h;$!d' $result | grep TS -A 6 | sed '/^[^{T]*$/d' | awk -F "'" -v limit="$ts_limit" '/^'\''TS/{ts=$4;next}{if(ts<limit){print $2;ts=limit+1}}' > $rmlist
+grep 'TS\|{' $result | sed '1!G;h;$!d' | grep 'TS' -A 1 | awk -F "'" -v limit="$ts_limit" '/^'\''TS/{ts=$4;next}{if(ts<limit){print $2;ts=limit+1}}' > $rmlist
 
 echo 'removed sources:'
 cat $rmlist
 
-# To convert '+' to '\\+' in order to avoid the conflict with regular expression
+# Converting '+' to '\\+' in order to avoid the conflict with regular expression
 sed 's/\+/\\\\\+/g' $rmlist > $rmlist_tmp
 mv $rmlist_tmp $rmlist
 
 while read srcname;
 do
-	cp $model_rmweak $model_tmp
-	awk 'BEGIN{tag=0} /^.*'$srcname'/{tag=1}{if(tag==0){print}}/^.*<\/source>$/{tag=0}' $model_tmp > $model_rmweak
+  cp $model_rmweak $model_tmp
+  awk 'BEGIN{tag=0} /^.*'$srcname'/{tag=1}{if(tag==0){print}}/^.*<\/source>$/{tag=0}' $model_tmp > $model_rmweak
 done < $rmlist
 
 echo "`cat $rmlist | wc -l` weakest sources(TS < $ts_limit) are removed from model file"
@@ -51,6 +51,9 @@ rm -f $model_tmp $rmlist
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Updating catalog:
+
+# V1.2.0
+# Accounting of the variety in the length of different sources' descriptions
 
 # V1.1.3
 # Use sed command to eliminate the incompatiblity between Linux-Bash and Macintosh-Bash
